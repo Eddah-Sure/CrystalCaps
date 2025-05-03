@@ -10,4 +10,14 @@ This paper introduces a novel architecture, Capsule Crystal Graph Networks*, tha
 
 ![image](https://github.com/user-attachments/assets/86ca1c86-cbcd-4333-a259-c37146c67d02)
 
+Requirements:
+Python
+Pymatgen - for graph coordinator
+NetworkX, Graphviz, Matplot - For plots
+Torch-geometric, 
+Early-stopping-pytorch
+
+
+
+
 
