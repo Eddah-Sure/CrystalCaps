@@ -1,7 +1,8 @@
 # CrystalCaps
 This repository contains the original implimentation of GNN + Capsules enhanced architecture for crystalline material representation. The architecture has been used to predict continous material properties including band gap and formation energy. We also introduce a cross entroppy loss for a binary classification task
 
-![image](https://github.com/user-attachments/assets/33641282-0108-4a62-b1cd-8025534ff91a)
+<img width="616" alt="image" src="https://github.com/user-attachments/assets/bd30c8b1-4192-4668-bd70-f71aa688349a" />
+
 
 
 GNN + Capsules for crystalline materials
