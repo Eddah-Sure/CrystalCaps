@@ -41,6 +41,7 @@ primary_dim=\,
 secondary_caps=\,
 secondary_dim=\,
 epochs=\,
+early_stopping_patience=\,
 lr=\ </pre>
 
 **Authorship**
