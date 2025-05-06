@@ -29,8 +29,8 @@ We have only provided the material IDs used. However this model does require 3 m
 - cofigfile.json: defines the node vectors
 
 **Training**
-<pre> dataset = #Your dataset
-target_name = # Target
+<pre>dataset = \,
+target_name = \,
 batch-size=\,
 node_features=\,
 edge_features=\,
