@@ -42,6 +42,11 @@ secondary_caps=\,
 secondary_dim=\,
 epochs=\,
 lr=\ </pre>
+
+**Authorship**
+This was primarily written by Sure Eddah, advised by Prof. Wu Xing
+
+**Cite**
         
 
 
