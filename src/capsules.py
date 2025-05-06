@@ -1,3 +1,6 @@
+import torch.nn as nn
+import math
+
 class PrimaryCapsuleLayer(nn.Module):
     def __init__(self, in_features, out_caps, caps_dim):
         super(PrimaryCapsuleLayer, self).__init__()
