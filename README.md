@@ -24,7 +24,7 @@ We have also provided a graph coordinator to create the graph data files for eac
 
 **Dataset Files**
 We have only provided the material IDs used. However this model does require 3 mail files for each of the tasks. We provide clarity on what the 3 files are;
-- targetfile.csv: contains all the target values, for insance the continouse values of bandgap incase of the bandgap prediction task and so on
+- targetfile.csv: contains all the target values, for insance the continous values of bandgap incase of the bandgap prediction task and so on
 - graphfile.npz: contains all the crystal graph attributes generated
 - cofigfile.json: defines the node vectors
 
