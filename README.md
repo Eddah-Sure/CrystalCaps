@@ -17,6 +17,7 @@ GNN + Capsules for crystalline materials introduces a novel architecture, Capsul
 - scikit-learn
 
 **Data**
+
 To reproduce this work, we have provided the material IDs used for each of the tasks. Check the Data file.
 We have also provided a graph coordinator to create the graph data files for each of the datasets. You will require an API Key for this, check here for details [Materials Project](https://next-gen.materialsproject.org/)
 
