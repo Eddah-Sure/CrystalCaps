@@ -1,3 +1,7 @@
+import os
+import json
+import numpy as np
+import pandas as pd
 
 class Graph:
     def __init__(self, graph_data):
@@ -90,7 +94,7 @@ class CartesianGraphDataset(Dataset):
 
     def _load_graph_data(self):
         """Load and validate graph data from NPZ file"""
-        npz_path = os.path.join(self.path, "BandgapTargets.npz")
+        npz_path = os.path.join(self.path, "file.npz")
         try:
             with np.load(npz_path, allow_pickle=True) as data:
                 graph_dict = data['graph_dict'].item()
@@ -113,7 +117,7 @@ class CartesianGraphDataset(Dataset):
 
     def _load_config(self):
         """Load and validate configuration"""
-        config_path = os.path.join(self.path, "BandgapTargets_config.json")
+        config_path = os.path.join(self.path, "file.json")
         try:
             with open(config_path) as f:
                 config = json.load(f)
@@ -130,7 +134,7 @@ class CartesianGraphDataset(Dataset):
             raise RuntimeError(f"Error loading config: {str(e)}")
 
     def _load_targets(self):
-        targets_path = os.path.join(self.path, "CleanBandgapTargets.csv")
+        targets_path = os.path.join(self.path, "file.csv")
         try:
             df = pd.read_csv(targets_path)
             if self.target_name not in df.columns:
@@ -149,7 +153,6 @@ class CartesianGraphDataset(Dataset):
         return len(self.graph_data)
 
     def __getitem__(self, index):
-        """Create PyG Data object with all features"""
         graph = self.graph_data[index]
 
         # Create one-hot node features
