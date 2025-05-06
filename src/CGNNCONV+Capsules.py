@@ -1,3 +1,9 @@
+import math
+import torch.nn as nn
+from torch_geometric.nn import MessagePassing
+from torch_geometric.data import Data, Batch
+from torch_geometric.utils import scatter, to_dense_batch
+
 class CartesianAwareCrystalGNNCapsNet(nn.Module):
     def __init__(self, node_features, edge_features, hidden_channels,
                  num_conv_layers, primary_caps, primary_dim,
