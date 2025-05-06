@@ -11,11 +11,11 @@ GNN + Capsules for crystalline materials introduces a novel architecture, Capsul
 ![image](https://github.com/user-attachments/assets/86ca1c86-cbcd-4333-a259-c37146c67d02)
 
 **Requirements:**
-1. Python
-2. Pymatgen - for graph coordinator
-3. NetworkX, Graphviz, Matplot - For plots
-4. Torch-geometric, 
-5. Early-stopping-pytorch
+- Python
+- Pymatgen - for graph coordinator
+- NetworkX, Graphviz, Matplot - For plots
+- Torch-geometric, 
+- Early-stopping-pytorch
 
 
 
