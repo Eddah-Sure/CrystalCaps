@@ -45,7 +45,7 @@ early_stopping_patience=\,
 lr=\ </pre>
 
 **Authorship**
-This was primarily written by Sure Eddah, advised by Prof. Wu Xing
+This was primarily written by Eddah K. Sure, advised by Prof. Wu Xing
 
 **Cite**
         
