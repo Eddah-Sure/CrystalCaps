@@ -1,8 +1,8 @@
 # CrystalCaps
 This repository presents the original implementetion of Equivariant Capsule Graph Networks, CGN-e3, a novel architecture that integrates capsule networks with graph neural networks for crystalline materials representation. CGN-e3 model processes atomic graphs by encoding neighbor distances via radial basis functions, angles via spherical harmonics, and aggregates messages via the Clebsch–Gordan tensor products, satisfying equivariance under 3D reflections, rotations, and translations. 
 
+<img width="622" alt="image" src="https://github.com/user-attachments/assets/6b47c208-9c8a-4fc1-8ba0-ba7025f4e909" />
 
-![image](https://github.com/user-attachments/assets/74df6e4a-8fa9-4a39-a755-4fbd0b2e0a73)
 
 
 
