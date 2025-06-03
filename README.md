@@ -9,8 +9,7 @@ The model processes a crystal’s atomic graph through a sequence of equivariant
 <p align="center">
   <img src="https://github.com/user-attachments/assets/1e640baa-9392-4349-aae8-94e42869dba7" alt="image" />
 </p>
- 
-![image](https://github.com/user-attachments/assets/1e640baa-9392-4349-aae8-94e42869dba7)
+
 
 
 
