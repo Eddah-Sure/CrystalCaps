@@ -2,6 +2,10 @@ import os
 import json
 import numpy as np
 import pandas as pd
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import Dataset
 
 class Graph:
     def __init__(self, graph_data):
@@ -13,7 +17,7 @@ class Graph:
             self.bond_lengths = graph_data['bond_lengths']
             self.cart_coords = graph_data['cart_coords']
 
-            # To numpy arrays
+
             self.nodes = np.array(self.nodes)
             self.type_counts = np.array(self.type_counts)
             self.neighbor_counts = np.array(self.neighbor_counts)
@@ -31,12 +35,10 @@ class Graph:
         if len(self.bond_lengths) != len(self.neighbors):
             raise ValueError(f"Bond lengths count ({len(self.bond_lengths)}) must match neighbor count ({len(self.neighbors)})")
 
-        # Build graph components
         self.edge_attr = self._create_edge_attributes()
         self.edge_index = self._create_edge_index()
 
     def _create_edge_attributes(self):
-        """Create edge attributes with bond lengths and types"""
         edge_types = []
         for edge_type, count in enumerate(self.type_counts):
             edge_types.extend([edge_type] * count)
@@ -44,24 +46,19 @@ class Graph:
         if len(edge_types) != len(self.bond_lengths):
             raise ValueError(f"Edge type count ({len(edge_types)}) doesn't match bond lengths count ({len(self.bond_lengths)})")
 
-        # Stack bond lengths and edge types
         return torch.tensor(
             np.column_stack([self.bond_lengths, edge_types]),
             dtype=torch.float32
         )
 
     def _create_edge_index(self):
-        """Create edge index with source and target nodes"""
         edge_sources = []
         num_edge_labels = len(self.type_counts)
         neighbor_counts = self.neighbor_counts.reshape(num_edge_labels, -1)
-
-        # Create source nodes for each edge type
         for edge_type in range(num_edge_labels):
             for node_idx, count in enumerate(neighbor_counts[edge_type]):
                 edge_sources.extend([node_idx] * count)
 
-        # Create target nodes
         edge_targets = []
         start_idx = 0
         for count in self.type_counts:
@@ -76,7 +73,7 @@ class Graph:
 
         return torch.tensor([edge_sources, edge_targets], dtype=torch.long).contiguous()
 
-class CartesianGraphDataset(Dataset):
+class GraphDataset(Dataset):
     def __init__(self, path, target_name):
         super().__init__()
         self.path = path
@@ -89,12 +86,10 @@ class CartesianGraphDataset(Dataset):
         if len(self.graph_data) != len(self.targets):
             raise ValueError(
                 f"Graph count ({len(self.graph_data)}) doesn't match "
-                f"target count ({len(self.targets)})"
-            )
+                f"target count ({len(self.targets)})")
 
     def _load_graph_data(self):
-        """Load and validate graph data from NPZ file"""
-        npz_path = os.path.join(self.path, "file.npz")
+        npz_path = os.path.join(self.path, "")
         try:
             with np.load(npz_path, allow_pickle=True) as data:
                 graph_dict = data['graph_dict'].item()
@@ -116,8 +111,7 @@ class CartesianGraphDataset(Dataset):
             raise RuntimeError(f"Error loading graph data: {str(e)}")
 
     def _load_config(self):
-        """Load and validate configuration"""
-        config_path = os.path.join(self.path, "file.json")
+        config_path = os.path.join(self.path, "")
         try:
             with open(config_path) as f:
                 config = json.load(f)
@@ -134,18 +128,15 @@ class CartesianGraphDataset(Dataset):
             raise RuntimeError(f"Error loading config: {str(e)}")
 
     def _load_targets(self):
-        targets_path = os.path.join(self.path, "file.csv")
+        targets_path = os.path.join(self.path, "")
         try:
             df = pd.read_csv(targets_path)
             if self.target_name not in df.columns:
                 raise ValueError(f"Target column '{self.target_name}' not found in CSV")
-
             self.targets = df[self.target_name].values
             if len(self.targets) == 0:
                 raise ValueError("No targets found in CSV file")
-
             self.graph_names = df['mpid'].values.tolist()
-
         except Exception as e:
             raise RuntimeError(f"Error loading targets: {str(e)}")
 
@@ -153,9 +144,8 @@ class CartesianGraphDataset(Dataset):
         return len(self.graph_data)
 
     def __getitem__(self, index):
+        
         graph = self.graph_data[index]
-
-        # Create one-hot node features
         node_features = np.zeros((len(graph.nodes), self.n_node_feat))
         for i, atomic_num in enumerate(graph.nodes):
             idx = self.atomic_to_idx[atomic_num]
@@ -171,4 +161,3 @@ class CartesianGraphDataset(Dataset):
             material_id=self.graph_names[index]
         )
         return data
-
