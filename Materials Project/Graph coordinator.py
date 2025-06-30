@@ -8,13 +8,6 @@ import numpy as np
 from joblib import Parallel, delayed, parallel_backend
 from sklearn.cluster import KMeans
 
-warnings.filterwarnings("ignore")
-
-api_key = 'api_key'
-mpr = MPRester(api_key)
-
-CC_CUTOFF = 0.03
-RADIUS_FACTOR = 1.2
 
 def load_material_ids(filepath):
     
@@ -45,10 +38,10 @@ def get_atomic_radius(z):
     except Exception:
         return 1.5
 
-def crystal_graph_coordinator(structure, alpha=1.2, beta=0.03):
-    """Generate a crystal graph with edge types, counts, bond lengths, and Cartesian coordinates."""
+def crystal_graph_coordinator():
+   
     A = structure.lattice.matrix
-    Z = [site.specie.Z for site in structure]
+    Z = [site Z for site in structure]
     X = structure.frac_coords
     cart_coords = structure.cart_coords  
 
@@ -65,9 +58,9 @@ def crystal_graph_coordinator(structure, alpha=1.2, beta=0.03):
     for i in range(len(Z)):
         J, D, B = [], [], []
         for j in range(len(Z)):
-            c = (r[i] + r[j]) * f_v * alpha
-            for n in [np.zeros(3)]:  # Only consider within unit cell (no periodic neighbors)
-                d = np.linalg.norm(A @ (X[j] - X[i] + n))
+            c = (r[i] + r[j]) * f_v
+            for n in [np.zeros(3)]:  
+                d = np.linalg.norm(A (X[j] - X[i] + n))
                 if d < c and i != j:
                     J.append(j)
                     D.append(d / c)  # Normalized distance
@@ -154,14 +147,12 @@ def process_material(material_id, count, total_count):
         "max_neighbors": max_count
     }
 
-def main(csv_file, output_file, num_cpus=10): 
-    """Process materials and save graph data with bond lengths and positions."""
+def main(csv_file, output_file, num_cpus): 
+  
     material_ids = load_material_ids(csv_file)
     if not material_ids:
         print("No valid material ids found.")
-        return
-
-    print(f"Processing {len(material_ids)} materials using {num_cpus} CPUs...")
+        
 
     with parallel_backend('threading', n_jobs=num_cpus):
         results = Parallel(n_jobs=num_cpus)(
