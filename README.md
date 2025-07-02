@@ -201,7 +201,7 @@ The model generates several output files:
 
 ## Authorship
 
-This work was primarily written by **Eddah K. Sure**, advised by **Prof. Wu Xing**.
+This work was primarily written by **Eddah K. Sure**, advised by **Prof. Wu Xing** .
 
 ## Citation
 
@@ -210,7 +210,7 @@ If you use this code in your research, please cite:
 ```bibtex
 @article{sure2024crystalcaps,
   title={CrystalCaps: Equivariant Capsule Graph Networks for Crystalline Materials},
-  author={Sure, Eddah K. and Xing, Wu},
+  author={Sure, Eddah K. Xing, Wu and Quan, Qian},
   journal={arXiv preprint},
   year={2024}
 }
