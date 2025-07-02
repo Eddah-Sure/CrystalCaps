@@ -1,4 +1,6 @@
+import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from torch_geometric.nn import MessagePassing
 from torch_geometric.data import Data, Batch
 from torch_geometric.utils import scatter, to_dense_batch
@@ -7,8 +9,11 @@ from e3nn import o3
 from e3nn.o3 import FullyConnectedTensorProduct
 from e3nn.nn import Gate, BatchNorm
 from e3nn.o3 import Irreps, spherical_harmonics
+from GNNBase import EquivariantGNN, LayerNormalization
+from CapsuleNetwork import PrimaryCapsuleLayer, SecondaryCapsuleLayer
 
-class CGN-e3(nn.Module):
+
+class CGNe3(nn.Module):
     def __init__(self, node_features, edge_features, hidden_channels, num_conv_layers, primary_caps, primary_dim, secondary_caps, secondary_dim, dropout_rate):
         super().__init__()
         #Node embedding
