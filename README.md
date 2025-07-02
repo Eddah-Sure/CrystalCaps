@@ -209,10 +209,12 @@ If you use this code in your research, please cite:
 
 ```bibtex
 @article{sure2024crystalcaps,
-  title={CrystalCaps: Equivariant Capsule Graph Networks for Crystalline Materials},
+  title={Capsule Graph Networks for Accurate and
+ Interpretable Crystalline Materials Property
+ Prediction},
   author={Sure, Eddah K. Xing, Wu and Quan, Qian},
   journal={arXiv preprint},
-  year={2024}
+  year={2025}
 }
 ```
 
