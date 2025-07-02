@@ -6,7 +6,7 @@ This repository presents the original implementation of **Equivariant Capsule Gr
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/CrystalCaps.git
+git clone https://github.com/Eddah-Sure/CrystalCaps.git
 cd CrystalCaps
 
 # Install dependencies
@@ -91,25 +91,11 @@ your_dataset/
 
 ##  Training
 
-### Basic Usage
 
 ```python
-from Train import run_CGN
-
-# Train the model
-model, results = run_CGN(
+model, results = run_CGNe3(
     dataset_path="path/to/your/dataset",
-    target_name="formation_energy",  # or your target property
-    epochs=100
-)
-```
-
-### Advanced Configuration
-
-```python
-model, results = run_CGN(
-    dataset_path="path/to/your/dataset",
-    target_name="formation_energy",
+    target_name="property_value",
     epochs=200,
     batch_size=32,
     hidden_channels=128,
