@@ -10,7 +10,7 @@ from torch_geometric.data import Data, Batch
 from torch_geometric.utils import scatter, to_dense_batch
 from sklearn.metrics import mean_absolute_error, r2_score
 from torch.optim.lr_scheduler import ReduceLROnPlateau
-from Dataloader import GraphDataset
+from data import GraphDataset
 from Model import CGNe3
 
 
