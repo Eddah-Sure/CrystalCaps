@@ -1,3 +1,9 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from e3nn import o3
+from e3nn.o3 import FullyConnectedTensorProduct
+
 class PrimaryCapsuleLayer(nn.Module):
     def __init__(self, scalar_features, vector_features, out_caps, caps_dim):
         super().__init__()
