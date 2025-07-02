@@ -6,6 +6,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import Dataset
+from torch_geometric.data import Data
 
 class Graph:
     def __init__(self, graph_data):
