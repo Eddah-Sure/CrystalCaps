@@ -1,9 +1,11 @@
 import math
+import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch_geometric.nn import MessagePassing
-from e3nn.o3 import Irreps, spherical_harmonics
-
+from torch_geometric.utils import scatter
+from e3nn import o3
+from e3nn.o3 import Irreps, spherical_harmonics, FullyConnectedTensorProduct
 
 class EquivariantGNN(nn.Module):
     def __init__(self, channels, num_rbf=16, cutoff=10.0, lmax=1):
