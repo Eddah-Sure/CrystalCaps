@@ -1,5 +1,21 @@
-# CrystalCaps
-This repository presents the original implementetion of Equivariant Capsule Graph Networks, CGN-e3, a novel architecture that integrates capsule networks with graph neural networks for crystalline materials representation. CGN-e3 model processes atomic graphs by encoding neighbor distances via radial basis functions, angles via spherical harmonics, and aggregates messages via the Clebsch–Gordan tensor products, satisfying equivariance under 3D reflections, rotations, and translations. 
+# CrystalCaps: Equivariant Capsule Graph Networks (CGN-e3)
+
+This repository presents the original implementation of **Equivariant Capsule Graph Networks (CGN-e3)**, a novel architecture that integrates capsule networks with graph neural networks for crystalline materials representation. The CGN-e3 model processes atomic graphs by encoding neighbor distances via radial basis functions, angles via spherical harmonics, and aggregates messages via Clebsch–Gordan tensor products, satisfying equivariance under 3D reflections, rotations, and translations.
+
+## Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/CrystalCaps.git
+cd CrystalCaps
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run training
+cd src
+python Train.py
+```
 <p align="center">
 <img width="532" alt="image" src="https://github.com/user-attachments/assets/0aafda89-a2f0-4d30-b143-212178b01a62" />
 
@@ -16,45 +32,207 @@ Salency maps for interpretation
 
 </p>
 
-**Requirements:**
-- Python
-- Pymatgen
-- e3nn
-- scikit-learn
-- NetworkX, Graphviz, Matplot - For plots
+## Requirements
 
-**Data**
+### System Requirements
+- Python 3.8+
+- CUDA-compatible GPU (recommended)
 
-To reproduce this work, we have provided the material IDs used for each of the tasks. Check the Data file.
+### Dependencies
+All dependencies are listed in `requirements.txt`. Key packages include:
 
-We have also provided a graph coordinator to create the graph data files for each of the datasets. You will require an API Key for this, check here for details [Materials Project](https://next-gen.materialsproject.org/)
+- **PyTorch Ecosystem**: `torch`, `torch-geometric`, `torch-scatter`
+- **Equivariant Networks**: `e3nn`
+- **Scientific Computing**: `numpy`, `pandas`, `scipy`
+- **Machine Learning**: `scikit-learn`
+- **Visualization**: `matplotlib`, `seaborn` (optional)
 
-**Dataset Files**
-We have only provided the material IDs used. However this model does require 3 mail files for each of the tasks. We provide clarity on what the 3 files are;
-- targetfile.csv: contains all the target values, for insance the continous values of bandgap incase of the bandgap prediction task and so on
-- graphfile.npz: contains all the crystal graph attributes generated
-- cofigfile.json: defines the node vectors
+### Installation
 
-**Training**
-<pre>dataset = \,
-target_name = \,
-batch-size=\,
-node_features=\,
-edge_features=\,
-hidden_channels=\,
-num_conv_layers=\,
-primary_caps=8\,
-primary_dim=\,
-secondary_caps=\,
-secondary_dim=\,
-epochs=\,
-early_stopping_patience=\,
-lr=\ </pre>
+```bash
+# Install PyTorch with CUDA support (recommended)
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
-**Authorship**
-This was primarily written by Eddah K. Sure, advised by Prof. Wu Xing
+# Install all other dependencies
+pip install -r requirements.txt
+```
 
-**Cite**
+For CPU-only installation:
+```bash
+pip install -r requirements.txt
+```
+
+## Data Preparation
+
+### Dataset Structure
+The model requires three main files for each dataset:
+
+1. **`targets.csv`**: Contains target values (e.g., formation energy, band gap)
+   - Must include columns: `mpid` (material ID) and your target property
+
+2. **`graph_data.npz`**: Contains crystal graph attributes
+   - Generated using the provided graph coordinator
+
+3. **`config.json`**: Defines node feature vectors
+   - Contains atomic numbers and their corresponding feature vectors
+
+### Data Sources
+- Material IDs are provided in the `data/` directory
+- Use the graph coordinator in `Materials Project/Graph coordinator.py` to generate graph files
+- **API Key Required**: Get your Materials Project API key [here](https://next-gen.materialsproject.org/)
+
+### Example Dataset Structure
+```
+your_dataset/
+├── targets.csv          # Target properties
+├── graph_data.npz       # Graph representations
+└── config.json          # Node feature definitions
+```
+
+##  Training
+
+### Basic Usage
+
+```python
+from Train import run_CGN
+
+# Train the model
+model, results = run_CGN(
+    dataset_path="path/to/your/dataset",
+    target_name="formation_energy",  # or your target property
+    epochs=100
+)
+```
+
+### Advanced Configuration
+
+```python
+model, results = run_CGN(
+    dataset_path="path/to/your/dataset",
+    target_name="formation_energy",
+    epochs=200,
+    batch_size=32,
+    hidden_channels=128,
+    num_conv_layers=3,
+    primary_caps=16,
+    primary_dim=64,
+    secondary_caps=8,
+    secondary_dim=32,
+    dropout_rate=0.1,
+    early_stopping_patience=20
+)
+```
+
+### Command Line Training
+
+```bash
+cd src
+python Train.py
+```
+
+**Note**: Update the dataset path and target name in the `if __name__ == "__main__"` section of `Train.py`
+
+### Hyperparameters
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `batch_size` | 32 | Training batch size |
+| `hidden_channels` | 128 | Hidden layer dimensions |
+| `num_conv_layers` | 3 | Number of graph convolution layers |
+| `primary_caps` | 16 | Number of primary capsules |
+| `primary_dim` | 64 | Primary capsule dimensions |
+| `secondary_caps` | 8 | Number of secondary capsules |
+| `secondary_dim` | 32 | Secondary capsule dimensions |
+| `dropout_rate` | 0.1 | Dropout probability |
+| `early_stopping_patience` | 20 | Early stopping patience |
+
+##  Architecture Overview
+
+The CGN-e3 model consists of several key components:
+
+### 1. **Equivariant Graph Convolutions** (`GNNBase.py`)
+- **EquivariantGNN**: Processes atomic graphs with E(3) equivariance
+- **RadialBasisLayer**: Encodes distances using Gaussian RBFs
+- **LayerNormalization**: Normalizes scalar and vector features
+
+### 2. **Capsule Networks** (`CapsuleNetwork.py`)
+- **PrimaryCapsuleLayer**: Converts node features to primary capsules
+- **SecondaryCapsuleLayer**: Aggregates primary capsules via dynamic routing
+
+### 3. **Main Model** (`Model.py`)
+- **CGNe3**: Complete model integrating GNN and capsule components
+- Attention mechanism for capsule aggregation
+- Final prediction layers
+
+### 4. **Data Processing** (`Dataloader.py`)
+- **GraphDataset**: Loads and processes crystal structure data
+- **Graph**: Handles individual crystal graph representations
+
+### 5. **Training Pipeline** (`Train.py`)
+- Training and evaluation functions
+- Model checkpointing and metrics logging
+- Hyperparameter management
+
+## Project Structure
+
+```
+CrystalCaps/
+├── src/
+│   ├── Train.py           # Training pipeline
+│   ├── Model.py           # CGNe3 model definition
+│   ├── GNNBase.py         # Equivariant GNN layers
+│   ├── CapsuleNetwork.py  # Capsule network components
+│   └── Dataloader.py      # Data loading utilities
+├── data/                  # Dataset files
+├── Materials Project/     # Graph generation tools
+├── requirements.txt       # Dependencies
+└── README.md             # This file
+```
+
+##  Model Features
+
+- **E(3) Equivariance**: Invariant to rotations, reflections, and translations
+- **Capsule Routing**: Dynamic routing for hierarchical feature learning
+- **Attention Mechanism**: Weighted aggregation of capsule features
+- **Multi-scale Representation**: From atomic to graph-level features
+
+## Results and Outputs
+
+The model generates several output files:
+
+- `results_{target_name}/training_metrics.csv`: Training progress
+- `results_{target_name}/best_model.pth`: Best model checkpoint
+- `results_{target_name}/test_metrics.csv`: Test performance metrics
+- `results_{target_name}/predictions.csv`: Detailed predictions
+
+##  Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## Authorship
+
+This work was primarily written by **Eddah K. Sure**, advised by **Prof. Wu Xing**.
+
+## Citation
+
+If you use this code in your research, please cite:
+
+```bibtex
+@article{sure2024crystalcaps,
+  title={CrystalCaps: Equivariant Capsule Graph Networks for Crystalline Materials},
+  author={Sure, Eddah K. and Xing, Wu},
+  journal={arXiv preprint},
+  year={2024}
+}
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
         
 
 
