@@ -1,4 +1,7 @@
 import os
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 import numpy as np
 import pandas as pd
 from torch.utils.data import Dataset, DataLoader, SubsetRandomSampler, random_split
@@ -6,8 +9,9 @@ from torch_geometric.nn import MessagePassing
 from torch_geometric.data import Data, Batch
 from torch_geometric.utils import scatter, to_dense_batch
 from sklearn.metrics import mean_absolute_error, r2_score
-from sklearn.metrics import mean_absolute_error
 from torch.optim.lr_scheduler import ReduceLROnPlateau
+from Dataloader import GraphDataset
+from Model import CGNe3
 
 
 def train_CGN( model, train_loader, optimizer, device, epochs, scheduler, early_stopping_patience, checkpoint_path, metrics_path):
@@ -134,7 +138,7 @@ def run_CGN(dataset_path, target_name, epochs):
     test_loader = DataLoader(test_dataset, batch_size=batch_size, collate_fn=Batch.from_data_list)
 
     print("Initializing Spatial-Aware GNN + Capsule Network model")
-    model = CGN-e3(
+    model = CGNe3(
         node_features=dataset[0].x.size(1),
         edge_features=dataset[0].edge_attr.size(1),
         hidden_channels=hidden_channels,
