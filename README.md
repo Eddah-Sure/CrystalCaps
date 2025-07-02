@@ -41,10 +41,10 @@ Salency maps for interpretation
 ### Dependencies
 All dependencies are listed in `requirements.txt`. Key packages include:
 
-- **PyTorch Ecosystem**: `torch`, `torch-geometric`, `torch-scatter`
+- **PyTorch**: `torch`, `torch-geometric`, `torch-scatter`
 - **Equivariant Networks**: `e3nn`
-- **Scientific Computing**: `numpy`, `pandas`, `scipy`
-- **Machine Learning**: `scikit-learn`
+- **Computing**: `numpy`, `pandas`, `scipy`
+- **ML**: `scikit-learn`
 - **Visualization**: `matplotlib`, `seaborn` (optional)
 
 ### Installation
