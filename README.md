@@ -79,7 +79,7 @@ The model requires three main files for each dataset:
 ### Data Sources
 - Material IDs are provided in the `data/` directory
 - Use the graph coordinator in `Materials Project/Graph coordinator.py` to generate graph files
-- **API Key Required**: Get your Materials Project API key [here](https://next-gen.materialsproject.org/)
+- **API Key Required**: Get your Materials Project API key [here](https://next-gen.materialsproject.org/api)
 
 ### Example Dataset Structure
 ```
