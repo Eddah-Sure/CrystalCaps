@@ -2,20 +2,7 @@
 
 This repository presents the very first implementation of **Equivariant Capsule Graph Networks (CGN-e3)**, a novel architecture that integrates capsule networks with graph neural networks for crystalline materials representation. The CGN-e3 model processes atomic graphs by encoding neighbor distances via radial basis functions, angles via spherical harmonics, and aggregates messages via Clebsch–Gordan tensor products, satisfying equivariance under 3D reflections, rotations, and translations.
 
-## Quick Start
 
-```bash
-# Clone the repository
-git clone https://github.com/Eddah-Sure/CrystalCaps.git
-cd CrystalCaps
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run training
-cd src
-python Train.py
-```
 <p align="center">
 <img width="532" alt="image" src="https://github.com/user-attachments/assets/0aafda89-a2f0-4d30-b143-212178b01a62" />
 
@@ -31,7 +18,20 @@ Salency maps for interpretation
 <img width="550" alt="image" src="https://github.com/user-attachments/assets/3267c22c-404d-4aad-96ea-baa8f6a8ca85" />
 
 </p>
+## Quick Start
 
+```bash
+# Clone the repository
+git clone https://github.com/Eddah-Sure/CrystalCaps.git
+cd CrystalCaps
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run training
+cd src
+python Train.py
+```
 ## Requirements
 
 ### System Requirements
