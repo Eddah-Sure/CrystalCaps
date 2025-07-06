@@ -1,3 +1,9 @@
+"""
+E(3)-equivariant convolution layers for crystal graph networks.
+This contains the convolution layers that respect E(3) symmetry,
+including radial basis functions and equivariant message passing.
+"""
+
 import math
 import torch
 import torch.nn as nn
