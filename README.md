@@ -130,8 +130,8 @@ CrystalCaps/
 │   ├── Model.py           # CGNe3 model definition
 │   ├── GNNBase.py         # Equivariant GNN layers
 │   ├── CapsuleNetworkLayers.py  # Capsule network components
-├── data/                  # Dataset files
-├── Materials Project/     # Graph generation tools
+├── datafiles/                  # Dataset files
+├── Graph Coordinator/     # Graph generation
 ├── requirements.txt       # Dependencies
 └── README.md             # This file
 ```
