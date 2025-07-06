@@ -4,18 +4,18 @@ This repository presents the very first implementation of **Equivariant Capsule 
 
 
 <p align="center">
-<img width="532" alt="image" src="https://github.com/user-attachments/assets/0aafda89-a2f0-4d30-b143-212178b01a62" />
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/0aafda89-a2f0-4d30-b143-212178b01a62" />
 
 </p>
 
 The model processes a crystal’s atomic graph through a sequence of equivariant graph convolutions, capsule routing layers and an attention mechanism to predict material properties. First, atomic numbers are embedded via one-hot and distances are encoded by a radial basis function (RBF) expansion. In each equivariant convolutional layer, for each central atom and neighbor the relative vector is computed and decomposed it into its length and direction. The distance is expanded into a vector of Gaussian RBFs and direction expanded in spherical harmonics. A learnable multilayer perceptron (MLP) is applied to the RBF vector to produce radial filter coefficients, which are then multiplied with the spherical harmonics and tensor-producted with the neighbor’s feature tensor. Clebsch–Gordan tensor product aggregates spherical-harmonic order with neighbor features to produce output of order. The summed messages are then assembled back into irreducible feature vectors for atom. Each layer output is passed through suitable nonlinearities; that is SiLU on scalars and gated-sigmoid on vectors and an equivariant normalization for normalization and rescaling. After convolutions, each atom has a tuple of scalar and vector features encoding local geometry and chemistry. We treat these as primary capsules at the node level. These primary node capsules are then aggregated into a smaller set of graph capsules via an attention-and-routing mechanism. An attention weights nodes to balance different graph sizes, and then dynamic routing iteratively refines coupling coefficients between each node’s capsule and each graph-level capsule. Finally, to produce the property prediction, the graph capsule outputs are either further routed with attention into final output capsules corresponding to target properties.
 
 <p align="center">
-  <img width="533" alt="image" src="https://github.com/user-attachments/assets/27cadc44-1eea-4637-9e81-330b5827d3b4" />
+  <img width="600" alt="image" src="https://github.com/user-attachments/assets/27cadc44-1eea-4637-9e81-330b5827d3b4" />
 </p>
 Salency maps for interpretation
 <p align="center">
-<img width="550" alt="image" src="https://github.com/user-attachments/assets/3267c22c-404d-4aad-96ea-baa8f6a8ca85" />
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/3267c22c-404d-4aad-96ea-baa8f6a8ca85" />
 
 </p>
 ## Quick Start
@@ -34,18 +34,14 @@ python Train.py
 ```
 ## Requirements
 
-### System Requirements
+### Requirements
 - Python 3.8+
-- CUDA-compatible GPU (recommended)
-
-### Dependencies
-All dependencies are listed in `requirements.txt`. Key packages include:
-
-- **PyTorch**: `torch`, `torch-geometric`, `torch-scatter`
-- **Equivariant Networks**: `e3nn`
-- **Computing**: `numpy`, `pandas`, `scipy`
-- **ML**: `scikit-learn`
-- **Visualization**: `matplotlib`, `seaborn` (optional)
+- PyTorch 1.12+
+- PyTorch Geometric
+- e3nn
+- NumPy
+- Pandas
+- Scikit-learn
 
 ### Installation
 
@@ -132,34 +128,8 @@ python Train.py
 | `dropout_rate` | 0.1 | Dropout probability |
 | `early_stopping_patience` | 20 | Early stopping patience |
 
-##  Architecture Overview
 
-The CGN-e3 model consists of several key components:
-
-### 1. **Equivariant Graph Convolutions** (`GNNBase.py`)
-- **EquivariantGNN**: Processes atomic graphs with E(3) equivariance
-- **RadialBasisLayer**: Encodes distances using Gaussian RBFs
-- **LayerNormalization**: Normalizes scalar and vector features
-
-### 2. **Capsule Networks** (`CapsuleNetwork.py`)
-- **PrimaryCapsuleLayer**: Converts node features to primary capsules
-- **SecondaryCapsuleLayer**: Aggregates primary capsules via dynamic routing
-
-### 3. **Main Model** (`Model.py`)
-- **CGNe3**: Complete model integrating GNN and capsule components
-- Attention mechanism for capsule aggregation
-- Final prediction layers
-
-### 4. **Data Processing** (`Dataloader.py`)
-- **GraphDataset**: Loads and processes crystal structure data
-- **Graph**: Handles individual crystal graph representations
-
-### 5. **Training Pipeline** (`Train.py`)
-- Training and evaluation functions
-- Model checkpointing and metrics logging
-- Hyperparameter management
-
-## Project Structure
+## Project Structure/
 
 ```
 CrystalCaps/
@@ -167,37 +137,13 @@ CrystalCaps/
 │   ├── Train.py           # Training pipeline
 │   ├── Model.py           # CGNe3 model definition
 │   ├── GNNBase.py         # Equivariant GNN layers
-│   ├── CapsuleNetwork.py  # Capsule network components
-│   └── Dataloader.py      # Data loading utilities
+│   ├── CapsuleNetworkLayers.py  # Capsule network components
 ├── data/                  # Dataset files
 ├── Materials Project/     # Graph generation tools
 ├── requirements.txt       # Dependencies
 └── README.md             # This file
 ```
 
-##  Model Features
-
-- **E(3) Equivariance**: Invariant to rotations, reflections, and translations
-- **Capsule Routing**: Dynamic routing for hierarchical feature learning
-- **Attention Mechanism**: Weighted aggregation of capsule features
-- **Multi-scale Representation**: From atomic to graph-level features
-
-## Results and Outputs
-
-The model generates several output files:
-
-- `results_{target_name}/training_metrics.csv`: Training progress
-- `results_{target_name}/best_model.pth`: Best model checkpoint
-- `results_{target_name}/test_metrics.csv`: Test performance metrics
-- `results_{target_name}/predictions.csv`: Detailed predictions
-
-##  Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## Authorship
 
@@ -208,12 +154,11 @@ This work was primarily written by **Eddah K. Sure**, advised by **Prof. Wu Xing
 If you use this code in your research, please cite:
 
 ```bibtex
-@article{sure2024crystalcaps,
+@article{sure2025crystalcaps,
   title={Capsule Graph Networks for Accurate and
  Interpretable Crystalline Materials Property
  Prediction},
   author={Sure, Eddah K. Xing, Wu and Quan, Qian},
-  journal={arXiv preprint},
   year={2025}
 }
 ```
