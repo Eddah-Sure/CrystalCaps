@@ -1,3 +1,10 @@
+"""
+Main E(3)-equivariant crystal graph network with capsule networks.
+This contains the complete model architecture that combines
+E(3)-equivariant convolutions with capsule networks for crystal
+property prediction.
+"""
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
