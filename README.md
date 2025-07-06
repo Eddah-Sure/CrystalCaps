@@ -1,6 +1,6 @@
 # CrystalCaps: Capsule Graph Networks for Accurate and Interpretable Crystalline Materials Property Predictions (CGN-e3)
 
-This repository presents the very first implementation of **Equivariant Capsule Graph Networks (CGN-e3)**, a novel architecture that integrates capsule networks with graph neural networks for crystalline materials representation. The CGN-e3 model processes atomic graphs by encoding neighbor distances via radial basis functions, angles via spherical harmonics, and aggregates messages via Clebsch–Gordan tensor products, satisfying equivariance under 3D reflections, rotations, and translations.
+This repository presents the very first implementation of **Equivariant Capsule Graph Networks (CGN-e3)**, a novel architecture (first to integrate equivariance into capsules network) that integrates capsule networks with graph neural networks for crystalline materials representation. The CGN-e3 model processes atomic graphs by encoding neighbor distances via radial basis functions, angles via spherical harmonics, and aggregates messages via Clebsch–Gordan tensor products, satisfying equivariance under 3D reflections, rotations, and translations.
 
 
 <p align="center">
@@ -64,22 +64,22 @@ pip install -r requirements.txt
 The model requires three main files for each dataset:
 
 1. **`targets.csv`**: Contains target values (e.g., formation energy, band gap)
-   - Must include columns: `mpid` (material ID) and your target property
+   - Must include columns: `mpid` (material ID) and the target property from the Material Project Database
 
 2. **`graph_data.npz`**: Contains crystal graph attributes
-   - Generated using the provided graph coordinator
+   - Generated using the provided graph coordinator ( check the our Graph Coordinator )
 
 3. **`config.json`**: Defines node feature vectors
-   - Contains atomic numbers and their corresponding feature vectors
+   - Contains atomic numbers and their corresponding feature vectors, idealy we generate this fom our graph coordinator.
 
 ### Data Sources
 - Material IDs are provided in the `data/` directory
 - Use the graph coordinator in `Materials Project/Graph coordinator.py` to generate graph files
-- **API Key Required**: Get your Materials Project API key [here](https://next-gen.materialsproject.org/api)
+- **API Key Required**: Get the Materials Project API key [here](https://next-gen.materialsproject.org/api)
 
 ### Example Dataset Structure
 ```
-your_dataset/
+dataset/
 ├── targets.csv          # Target properties
 ├── graph_data.npz       # Graph representations
 └── config.json          # Node feature definitions
@@ -90,8 +90,8 @@ your_dataset/
 
 ```python
 model, results = run_CGNe3(
-    dataset_path="path/to/your/dataset",
-    target_name="property_value",
+    dataset_path="path/to/dataset",
+    target_name="",
     epochs=200,
     batch_size=32,
     hidden_channels=128,
@@ -143,7 +143,7 @@ This work was primarily written by **Eddah K. Sure**, advised by **Prof. Wu Xing
 
 ## Citation
 
-If you use this code in your research, please cite:
+If you use this code in research, please cite us as:
 
 ```bibtex
 @article{sure2025crystalcaps,
