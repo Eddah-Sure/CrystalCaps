@@ -105,26 +105,18 @@ model, results = run_CGNe3(
 )
 ```
 
-### Command Line Training
-
-```bash
-cd src
-python Train.py
-```
-
-**Note**: Update the dataset path and target name in the `if __name__ == "__main__"` section of `Train.py`
 
 ### Hyperparameters
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `batch_size` | 32 | Training batch size |
+| `batch_size` | 64 | Training batch size |
 | `hidden_channels` | 128 | Hidden layer dimensions |
-| `num_conv_layers` | 3 | Number of graph convolution layers |
-| `primary_caps` | 16 | Number of primary capsules |
-| `primary_dim` | 64 | Primary capsule dimensions |
-| `secondary_caps` | 8 | Number of secondary capsules |
-| `secondary_dim` | 32 | Secondary capsule dimensions |
+| `num_conv_layers` | 2 | Number of graph convolution layers |
+| `primary_caps` | 8 | Number of primary capsules |
+| `primary_dim` | 16 | Primary capsule dimensions |
+| `secondary_caps` | 6 | Number of secondary capsules |
+| `secondary_dim` | 16 | Secondary capsule dimensions |
 | `dropout_rate` | 0.1 | Dropout probability |
 | `early_stopping_patience` | 20 | Early stopping patience |
 
