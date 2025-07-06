@@ -1,3 +1,9 @@
+"""
+E(3)-equivariant capsule network layers.
+This contains capsule network layers that maintains E(3) equivariance
+while performing dynamic routing between capsules.
+"""
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
