@@ -28,9 +28,8 @@ cd CrystalCaps
 # Install dependencies
 pip install -r requirements.txt
 
-# Run training
-cd src
-python Train.py
+# Run training (from repo root)
+python -m src.crystalcaps.Train
 ```
 ## Requirements
 
@@ -121,25 +120,37 @@ model, results = run_CGNe3(
 | `early_stopping_patience` | 20 | Early stopping patience |
 
 
-## Project Structure/
+## Project Structure
 
 ```
 CrystalCaps/
 ├── src/
-│   ├── Train.py           # Training pipeline
-│   ├── Model.py           # CGNe3 model definition
-│   ├── GNNBase.py         # Equivariant GNN layers
-│   ├── CapsuleNetworkLayers.py  # Capsule network components
-├── datafiles/                  # Dataset files
-├── Graph Coordinator/     # Graph generation
-├── requirements.txt       # Dependencies
-└── README.md             # This file
+│   ├── crystalcaps/
+│   │   ├── CapsuleNetworkLayers.py      # Capsule network components
+│   │   ├── GNNBase.py                  # Equivariant GNN layers
+│   │   ├── Model.py                    # CGNe3 model definition
+│   │   ├── Train.py                    # Training pipeline
+│   │   └── data/                       # Data utilities
+│   │       ├── dataset.py
+│   │       └── graph.py
+│   └── graph_coordinator.py            # Graph construction utility
+├── data/                               # Dataset files
+│   ├── e_form.csv
+│   └── Metalclasses.csv
+├── figures/                            # Documentation figures
+├── examples/                           # Example notebooks/scripts
+├── tests/                              # Unit tests
+├── docs/                               # Full documentation
+├── requirements.txt                    # Dependencies
+├── README.md                           # This file
+├── LICENSE                             # License
+└── .gitignore                          # Git ignores
 ```
 
 
 ## Authorship
 
-This work was primarily written by **Eddah K. Sure**, advised by **Prof. Wu Xing** .
+This work was primarily written by **Eddah K. Sure**, advised by **Prof. Wu Xing** and **Prof.Qian Quan**.
 
 ## Citation
 
@@ -158,6 +169,8 @@ If you use this code in research, please cite us as:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+        
+
         
 
 
