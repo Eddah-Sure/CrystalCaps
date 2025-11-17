@@ -76,7 +76,7 @@ The model requires three main files for each dataset:
 - Use the graph coordinator in `Materials Project/Graph coordinator.py` to generate graph files
 - **API Key Required**: Get the Materials Project API key [here](https://next-gen.materialsproject.org/api)
 
-### Example Dataset Structure
+### Dataset Structure
 ```
 dataset/
 ├── targets.csv          # Target properties
@@ -84,24 +84,24 @@ dataset/
 └── config.json          # Node feature definitions
 ```
 
-##  Training
+##  Example
 
 
 ```python
-model, results = run_CGNe3(
-    dataset_path="path/to/dataset",
-    target_name="",
-    epochs=200,
-    batch_size=32,
-    hidden_channels=128,
-    num_conv_layers=3,
-    primary_caps=16,
-    primary_dim=64,
-    secondary_caps=8,
-    secondary_dim=32,
-    dropout_rate=0.1,
-    early_stopping_patience=20
-)
+if __name__ == '__main__':
+    # Example file paths (update appropriately)
+    data_dir = "data/"
+    targets_csv = "data/targets.csv"
+    config_json = "data/config.json"
+    graph_npz = "data/graph_data.npz"
+    target_property = "formation_energy_per_atom"
+    # You can also loop over several target properties
+
+    results_crystalcaps = train_and_evaluate_crystalcaps(
+        data_dir, targets_csv, config_json, graph_npz, target_property
+    )
+   
+
 ```
 
 
