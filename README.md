@@ -89,17 +89,15 @@ dataset/
 
 ```python
 if __name__ == '__main__':
-    # Example file paths (update appropriately)
+    
     data_dir = "data/"
     targets_csv = "data/targets.csv"
     config_json = "data/config.json"
     graph_npz = "data/graph_data.npz"
     target_property = "formation_energy_per_atom"
-    # You can also loop over several target properties
-
+   
     results_crystalcaps = train_and_evaluate_crystalcaps(
-        data_dir, targets_csv, config_json, graph_npz, target_property
-    )
+        data_dir, targets_csv, config_json, graph_npz, target_property)
    
 
 ```
