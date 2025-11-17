@@ -137,12 +137,10 @@ CrystalCaps/
 │   └── Metalclasses.csv
 ├── figures/                            # Documentation figures
 ├── examples/                           # Example notebooks/scripts
-├── tests/                              # Unit tests
 ├── docs/                               # Full documentation
 ├── requirements.txt                    # Dependencies
-├── README.md                           # This file
-├── LICENSE                             # License
-└── .gitignore                          # Git ignores
+├── README.md                           # This file                    
+└── LICENSE                            # License
 ```
 
 
